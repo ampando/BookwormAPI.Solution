@@ -7,19 +7,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookwormAPI.Models;
 
-namespace BookwormAPI.Controllers 
+namespace BookwormAPI.Controllers
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  public class BooksController : ControllerBase
-  {
-    private readonly BookwormAPIContext _db; 
+[Route("api/[controller]")]
+[ApiController]
+public class BooksController : ControllerBase
+{
+private readonly BookwormAPIContext _db; 
     
     public BooksController(BookwormAPIContext db)
     {
       _db = db; 
     }
-    
+
+  // GET: api/Books/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Book>> GetBook(int id)
+    {
+      var book = await _db.Books.FindAsync(id);
+
+      if (book == null)
+      {
+        return NotFound();
+      }
+      return book;
+    } 
+
   // GET api/books
   [HttpGet]
   public async Task<ActionResult<IEnumerable<Book>>> Get(string title, string author, string ageRange, string summary, string rating, string genre, string tags, string reviews)
@@ -66,7 +79,6 @@ namespace BookwormAPI.Controllers
     return await query.ToListAsync();
   }
 
-
     [HttpPost]
     public async Task<ActionResult<Book>> Post(Book book)
     {
@@ -76,21 +88,23 @@ namespace BookwormAPI.Controllers
       return CreatedAtAction("Post", new { id = book.BookId }, book); 
     }
 
-    // GET: api/Books/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Book>> GetBook(int id)
+   [HttpDelete("{id}")]
+  public async Task<IActionResult> Delete(int id)
+  {
+    var book = await _db.Books.FindAsync(id);
+    if (book == null)
     {
-      var book = await _db.Books.FindAsync(id);
+      return NotFound();
+    }
+    
+    _db.Books.Remove(book);
+    await _db.SaveChangesAsync();
 
-      if (book == null)
-      {
-        return NotFound();
-      }
-      return book;
-    }  
-  
-  // PUT: api/Books/5
-  [HttpPut("{id")]
+    return NoContent();
+    }
+
+    // PUT: api/Books/5
+  [HttpPut("{id}")]
   public async Task<IActionResult> Put(int id, Book book)
   {
     if (id != book.BookId)
@@ -117,23 +131,8 @@ namespace BookwormAPI.Controllers
     }
     return NoContent(); 
   }
-  
-  [HttpDelete("{id}")]
-  public async Task<IActionResult> Delete(int id)
-  {
-    var book = await _db.Books.FindAsync(id);
-    if (book == null)
-    {
-      return NotFound();
-    }
-    
-    _db.Books.Remove(book);
-    await _db.SaveChangesAsync();
 
-    return NoContent();
-    }
-    
-    private bool BookExists(int id)
+  private bool BookExists(int id)
     {
       return _db.Books.Any( e => e.BookId == id);
     }
