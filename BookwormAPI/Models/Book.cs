@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+
+
 namespace BookwormAPI.Models
 {
     public class Book
@@ -10,6 +14,14 @@ namespace BookwormAPI.Models
         public string Rating { get; set; }
         public string Genre { get; set; }
         public string Tags { get; set; }
-        public string Reviews { get; set; }
+        // public string Reviews { get; set; }
+
+        public Book()
+        {
+          this.Reviews = new HashSet<Review>();
+        }
+
+        public virtual ICollection<Review> Reviews {get; set;}
+
     }
 }
