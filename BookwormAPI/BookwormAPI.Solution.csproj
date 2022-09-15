@@ -12,6 +12,8 @@
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0-alpha.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <!-- Below we add Proxies to enable lazy loading: -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.0"/>
   </ItemGroup>
 
 </Project>
