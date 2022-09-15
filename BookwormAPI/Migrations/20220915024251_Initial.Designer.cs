@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookwormAPI.Solution.Migrations
 {
     [DbContext(typeof(BookwormAPIContext))]
-    [Migration("20220913022534_Initial")]
+    [Migration("20220915024251_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
