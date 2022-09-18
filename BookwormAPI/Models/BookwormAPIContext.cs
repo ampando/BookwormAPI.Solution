@@ -32,7 +32,7 @@ namespace BookwormAPI.Models
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Libraries { get; set; }
+        public DbSet<Library> Librarys { get; set; }
         public DbSet<Rating> Ratings { get; set; }
     }
 }
