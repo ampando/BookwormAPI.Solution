@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+
 
 namespace BookwormAPI.Models
 {
@@ -11,7 +11,7 @@ namespace BookwormAPI.Models
         public int UserId {get; set;}
 
         public int BookId {get; set;}
-        public virtual Book Book {get; set;}
+        // public virtual Book Book {get; set;}
 
         
 
