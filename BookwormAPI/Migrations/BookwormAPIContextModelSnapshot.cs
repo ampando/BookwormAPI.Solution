@@ -48,6 +48,30 @@ namespace BookwormAPI.Solution.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("BookwormAPI.Models.Rating", b =>
+                {
+                    b.Property<int>("RatingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TheRating")
+                        .HasColumnType("double");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RatingId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
+                });
+
             modelBuilder.Entity("BookwormAPI.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
@@ -79,11 +103,27 @@ namespace BookwormAPI.Solution.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BookwormAPI.Models.Rating", b =>
+                {
+                    b.HasOne("BookwormAPI.Models.Book", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookwormAPI.Models.User", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookwormAPI.Models.Review", b =>
@@ -103,11 +143,15 @@ namespace BookwormAPI.Solution.Migrations
 
             modelBuilder.Entity("BookwormAPI.Models.Book", b =>
                 {
+                    b.Navigation("Ratings");
+
                     b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("BookwormAPI.Models.User", b =>
                 {
+                    b.Navigation("Ratings");
+
                     b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
