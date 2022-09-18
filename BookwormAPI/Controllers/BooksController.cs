@@ -76,8 +76,8 @@ private readonly BookwormAPIContext _db;
     //   query = query.Where(entry => entry.Reviews == reviews);
     // }
     
-    return await query.ToListAsync();
-  }
+      return await query.ToListAsync();
+    }
 
     [HttpPost]
     public async Task<ActionResult<Book>> Post(Book book)
