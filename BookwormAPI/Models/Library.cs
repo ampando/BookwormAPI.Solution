@@ -24,3 +24,20 @@ namespace BookwormAPI.Models
 
     }
 }
+
+
+//library class below (from web app client side)
+public class Library
+  { 
+    public Library()
+    {
+      this.JoinEntities = new HashSet<BookLibrary>();
+    }
+
+    public int LibraryId { get; set; }
+    public string Name { get; set; }
+    public virtual ICollection<BookLibrary> JoinEntities { get; set; }
+    
+    public virtual ApplicationUser User { get; set; }
+  }
+}
