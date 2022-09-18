@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookwormAPI.Solution.Migrations
 {
-    public partial class RatingsTable : Migration
+    public partial class InitalLibraryBranch : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

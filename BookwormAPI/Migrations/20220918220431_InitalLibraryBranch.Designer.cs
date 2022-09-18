@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookwormAPI.Solution.Migrations
 {
     [DbContext(typeof(BookwormAPIContext))]
-    [Migration("20220918171144_RatingsTable")]
-    partial class RatingsTable
+    [Migration("20220918220431_InitalLibraryBranch")]
+    partial class InitalLibraryBranch
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
