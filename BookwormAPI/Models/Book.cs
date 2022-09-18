@@ -19,9 +19,11 @@ namespace BookwormAPI.Models
         public Book()
         {
           this.Reviews = new HashSet<Review>();
+          this.Ratings = new HashSet<Rating>();
         }
 
-        public virtual ICollection<Review> Reviews {get; set;}
+        public virtual ICollection<Review> Reviews { get; set;}
+        public virtual ICollection<Rating> Ratings { get; set; }
 
     }
 }
