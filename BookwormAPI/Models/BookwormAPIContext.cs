@@ -4,11 +4,12 @@ namespace BookwormAPI.Models
 {
     public class BookwormAPIContext : DbContext
     {
-        public BookwormAPIContext(DbContextOptions<BookwormAPIContext> options)
-            : base(options)
-        {
-        }
-
+      
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Library> Librarys { get; set; }
+        public DbSet<BookLibrary> BookLibrary { get; set; }
+        public BookwormAPIContext(DbContextOptions options) : base(options) { }
+        
         //to add lazy loading?
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
           {
@@ -28,11 +29,6 @@ namespace BookwormAPI.Models
         //     new Book { BookId = 7, Title = "The Giving Tree", AgeRange = "2-8", Author = "Shel Silverstein", Summary = "Once there was a tree...and she loved a little boy.", Rating = "5", Genre = "Bedtime, classics", Tags = "nature", Reviews = "Classic"  },
         //     new Book { BookId = 8, Title = "The Very Hungry Caterpillar", AgeRange = "2-5", Author = "Eric Carle", Summary = "Featuring interactive die-cut pages, this board book edition is the perfect size for little hands and great for teaching counting and days of the week.", Rating = "5", Genre = "Adventure", Tags = "nature, science", Reviews = "This book is amazing!" }
         //     );
-        // }
-
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Rating> Ratings { get; set; }
+        // }    
     }
-}
+  }

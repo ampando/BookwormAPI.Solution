@@ -35,7 +35,7 @@ private readonly BookwormAPIContext _db;
 
   // GET api/books
   [HttpGet]
-  public async Task<ActionResult<IEnumerable<Book>>> Get(string title, string author, string ageRange, string summary, string rating, string genre, string tags)
+  public async Task<ActionResult<IEnumerable<Book>>> Get(string title, string author, string ageRange, string summary, string genre, string tags)
   {
     IQueryable<Book> query = _db.Books.AsQueryable(); 
     
@@ -56,10 +56,10 @@ private readonly BookwormAPIContext _db;
       query = query.Where(entry => entry.Summary == summary);
     }
     
-    if (rating != null)
-    {
-      query = query.Where(entry => entry.Rating == rating);
-    }
+    //if (rating != null)
+    //{
+      //query = query.Where(entry => entry.Rating == rating);
+    //}
     
     if (genre != null)
     {

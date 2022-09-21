@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookwormAPI.Solution.Migrations
 {
     [DbContext(typeof(BookwormAPIContext))]
-    [Migration("20220918171144_RatingsTable")]
-    partial class RatingsTable
+    [Migration("20220921034020_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,6 @@ namespace BookwormAPI.Solution.Migrations
                     b.Property<string>("Genre")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Rating")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<string>("Summary")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -50,57 +47,30 @@ namespace BookwormAPI.Solution.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("BookwormAPI.Models.Rating", b =>
+            modelBuilder.Entity("BookwormAPI.Models.BookLibrary", b =>
                 {
-                    b.Property<int>("RatingId")
+                    b.Property<int>("BookLibraryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<double>("TheRating")
-                        .HasColumnType("double");
-
-                    b.Property<int>("UserId")
+                    b.Property<int>("LibraryId")
                         .HasColumnType("int");
 
-                    b.HasKey("RatingId");
+                    b.HasKey("BookLibraryId");
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("LibraryId");
 
-                    b.ToTable("Ratings");
+                    b.ToTable("BookLibrary");
                 });
 
-            modelBuilder.Entity("BookwormAPI.Models.Review", b =>
+            modelBuilder.Entity("BookwormAPI.Models.Library", b =>
                 {
-                    b.Property<int>("ReviewId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TheReview")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ReviewId");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("BookwormAPI.Models.User", b =>
-                {
-                    b.Property<int>("UserId")
+                    b.Property<int>("LibraryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -108,53 +78,38 @@ namespace BookwormAPI.Solution.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("UserId");
+                    b.HasKey("LibraryId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Librarys");
                 });
 
-            modelBuilder.Entity("BookwormAPI.Models.Rating", b =>
+            modelBuilder.Entity("BookwormAPI.Models.BookLibrary", b =>
                 {
-                    b.HasOne("BookwormAPI.Models.Book", null)
-                        .WithMany("Ratings")
+                    b.HasOne("BookwormAPI.Models.Book", "Book")
+                        .WithMany("JoinEntities")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookwormAPI.Models.User", null)
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BookwormAPI.Models.Review", b =>
-                {
-                    b.HasOne("BookwormAPI.Models.Book", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("BookId")
+                    b.HasOne("BookwormAPI.Models.Library", "Library")
+                        .WithMany("JoinEntities")
+                        .HasForeignKey("LibraryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookwormAPI.Models.User", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Book");
+
+                    b.Navigation("Library");
                 });
 
             modelBuilder.Entity("BookwormAPI.Models.Book", b =>
                 {
-                    b.Navigation("Ratings");
-
-                    b.Navigation("Reviews");
+                    b.Navigation("JoinEntities");
                 });
 
-            modelBuilder.Entity("BookwormAPI.Models.User", b =>
+            modelBuilder.Entity("BookwormAPI.Models.Library", b =>
                 {
-                    b.Navigation("Ratings");
-
-                    b.Navigation("Reviews");
+                    b.Navigation("JoinEntities");
                 });
 #pragma warning restore 612, 618
         }
