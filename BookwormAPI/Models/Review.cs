@@ -8,6 +8,7 @@ namespace BookwormAPI.Models
         public int ReviewId { get; set; }
         public string TheReview { get; set; }
 
+        //this needs to be LIBRARY!! not user
         [Required]
         public int UserId {get; set;}
 

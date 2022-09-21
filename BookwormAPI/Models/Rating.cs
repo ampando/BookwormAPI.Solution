@@ -9,6 +9,7 @@ namespace BookwormAPI.Models
         [Required]
         public double TheRating { get; set; }
 
+        //this needs to be LIBRARY!! not user
         [Required]
         public int UserId {get; set;}
 
