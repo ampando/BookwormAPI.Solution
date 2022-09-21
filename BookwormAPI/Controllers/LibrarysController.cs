@@ -11,11 +11,11 @@ namespace BookwormAPI.Controllers
 {
 [Route("api/[controller]")]
 [ApiController]
-public class LibrariesController : ControllerBase
+public class LibrarysController : ControllerBase
 {
 private readonly BookwormAPIContext _db; 
     
-    public LibrariesController(BookwormAPIContext db)
+    public LibrarysController(BookwormAPIContext db)
     {
       _db = db; 
     }
